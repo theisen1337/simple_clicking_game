@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Factory - Incremental Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header -->
+        <header class="game-header">
+            <h1 class="game-title">Quantum Factor<span id="secret-cheat" class="secret-letter">y</span></h1>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">Quantum Energy:</span>
+                    <span id="quantum-energy" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Energy/sec:</span>
+                    <span id="energy-per-sec" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Prestige Level:</span>
+                    <span id="prestige-level" class="stat-value">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Game Area -->
+        <main class="game-main">
+            <!-- Core Clicking Area -->
+            <section class="clicking-area">
+                <div class="quantum-core">
+                    <button id="quantum-core-btn" class="core-button">
+                        <div class="core-glow"></div>
+                        <span class="core-text">HARVEST QUANTUM</span>
+                    </button>
+                    <div class="click-effect" id="click-effect"></div>
+                </div>
+            </section>
+
+            <!-- Upgrades Panel -->
+            <section class="upgrades-panel">
+                <h2 class="panel-title">Factory Upgrades</h2>
+                <div class="upgrades-grid" id="upgrades-container">
+                    <!-- Upgrades will be dynamically generated here -->
+                </div>
+            </section>
+
+            <!-- Research Panel -->
+            <section class="research-panel">
+                <h2 class="panel-title">Research & Development</h2>
+                <div class="research-tree" id="research-container">
+                    <!-- Research items will be dynamically generated here -->
+                </div>
+            </section>
+
+            <!-- Prestige Panel -->
+            <section class="prestige-panel">
+                <h2 class="panel-title">Quantum Prestige</h2>
+                <div class="prestige-info">
+                    <p>Current Multiplier: <span id="prestige-multiplier">1.00x</span></p>
+                    <p>Next Prestige at: <span id="next-prestige">1,000</span> Quantum Energy</p>
+                </div>
+                <button id="prestige-btn" class="prestige-button" disabled>
+                    QUANTUM RESET
+                </button>
+            </section>
+        </main>
+
+        <!-- Save/Load System -->
+        <div class="save-controls">
+            <button id="save-btn" class="control-btn">Save Game</button>
+            <button id="load-btn" class="control-btn">Load Game</button>
+            <button id="reset-btn" class="control-btn reset">Reset All</button>
+        </div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle">
+        <span class="theme-toggle-icon">🌙</span>
+        <span class="theme-toggle-text">Light Mode</span>
+    </button>
+
+    <!-- Settings Sidebar -->
+    <div id="settings-sidebar" class="settings-sidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">Settings</h3>
+        </div>
+        <div class="sidebar-content">
+            <div class="setting-group">
+                <h4 class="setting-category">Theme</h4>
+                <button id="theme-toggle-sidebar" class="setting-btn">
+                    <span class="setting-text">Toggle Theme</span>
+                </button>
+            </div>
+            
+            <div class="setting-group">
+                <h4 class="setting-category">Game Data</h4>
+                <button id="save-sidebar" class="setting-btn">
+                    <span class="setting-text">Save Game</span>
+                </button>
+                <button id="load-sidebar" class="setting-btn">
+                    <span class="setting-text">Load Game</span>
+                </button>
+                <button id="reset-sidebar" class="setting-btn warning">
+                    <span class="setting-text">Reset All Data</span>
+                </button>
+            </div>
+
+            <div class="setting-group">
+                <h4 class="setting-category">About</h4>
+                <div class="setting-info">
+                    <p>Quantum Factory v1.0</p>
+                    <p>An incremental quantum energy game</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parallax Background Symbols -->
+    <div class="parallax-container">
+        <!-- Layer 1 - Background (Slowest, Most Subtle) -->
+        <div class="parallax-layer-1">
+            <!-- Quantum Atoms -->
+            <div class="parallax-symbol atom float-slow" style="top: 15%; left: 8%; animation-delay: 0s;"></div>
+            <div class="parallax-symbol atom drift-slow rotate-slow" style="top: 65%; left: 12%; animation-delay: -18s;"></div>
+            <div class="parallax-symbol atom float-slow" style="top: 85%; left: 78%; animation-delay: -25s;"></div>
+            
+            <!-- Tech Hexagons -->
+            <div class="parallax-symbol hexagon drift-slow" style="top: 35%; left: 88%; animation-delay: -12s;"></div>
+            <div class="parallax-symbol hexagon float-slow rotate-slow" style="top: 75%; left: 35%; animation-delay: -30s;"></div>
+            
+            <!-- Circuit Nodes -->
+            <div class="parallax-symbol circuit-node drift-slow" style="top: 45%; left: 5%; animation-delay: -20s;"></div>
+            <div class="parallax-symbol circuit-node float-slow" style="top: 25%; left: 92%; animation-delay: -8s;"></div>
+            
+            <!-- Quantum Waves -->
+            <div class="parallax-symbol wave drift-slow" style="top: 55%; left: 60%; animation-delay: -15s;"></div>
+            
+            <!-- Tech Triangles -->
+            <div class="parallax-symbol triangle float-slow rotate-slow" style="top: 95%; left: 50%; animation-delay: -22s;"></div>
+        </div>
+
+        <!-- Layer 2 - Middle (Medium Speed, More Visible) -->
+        <div class="parallax-layer-2">
+            <!-- Quantum Atoms -->
+            <div class="parallax-symbol atom float-medium" style="top: 10%; left: 25%; animation-delay: -5s;"></div>
+            <div class="parallax-symbol atom drift-medium rotate-medium" style="top: 70%; left: 65%; animation-delay: -12s;"></div>
+            <div class="parallax-symbol atom float-medium" style="top: 40%; left: 85%; animation-delay: -8s;"></div>
+            
+            <!-- Tech Hexagons -->
+            <div class="parallax-symbol hexagon drift-medium rotate-medium" style="top: 20%; left: 45%; animation-delay: -6s;"></div>
+            <div class="parallax-symbol hexagon float-medium" style="top: 80%; left: 15%; animation-delay: -14s;"></div>
+            <div class="parallax-symbol hexagon drift-medium" style="top: 50%; left: 90%; animation-delay: -3s;"></div>
+            
+            <!-- Circuit Nodes -->
+            <div class="parallax-symbol circuit-node float-medium" style="top: 30%; left: 70%; animation-delay: -10s;"></div>
+            <div class="parallax-symbol circuit-node drift-medium" style="top: 60%; left: 20%; animation-delay: -7s;"></div>
+            
+            <!-- Quantum Waves -->
+            <div class="parallax-symbol wave float-medium" style="top: 35%; left: 55%; animation-delay: -9s;"></div>
+            <div class="parallax-symbol wave drift-medium" style="top: 85%; left: 80%; animation-delay: -2s;"></div>
+            
+            <!-- Tech Triangles -->
+            <div class="parallax-symbol triangle drift-medium rotate-medium" style="top: 5%; left: 75%; animation-delay: -11s;"></div>
+        </div>
+
+        <!-- Layer 3 - Foreground (Fastest, Most Visible) -->
+        <div class="parallax-layer-3">
+            <!-- Quantum Atoms -->
+            <div class="parallax-symbol atom float-fast" style="top: 25%; left: 40%; animation-delay: -2s;"></div>
+            <div class="parallax-symbol atom drift-fast rotate-medium" style="top: 55%; left: 10%; animation-delay: -7s;"></div>
+            
+            <!-- Tech Hexagons -->
+            <div class="parallax-symbol hexagon float-fast rotate-medium" style="top: 15%; left: 60%; animation-delay: -4s;"></div>
+            <div class="parallax-symbol hexagon drift-fast" style="top: 75%; left: 85%; animation-delay: -9s;"></div>
+            <div class="parallax-symbol hexagon float-fast" style="top: 45%; left: 30%; animation-delay: -1s;"></div>
+            
+            <!-- Circuit Nodes -->
+            <div class="parallax-symbol circuit-node drift-fast" style="top: 35%; left: 75%; animation-delay: -5s;"></div>
+            <div class="parallax-symbol circuit-node float-fast" style="top: 65%; left: 45%; animation-delay: -8s;"></div>
+            <div class="parallax-symbol circuit-node drift-fast" style="top: 90%; left: 25%; animation-delay: -3s;"></div>
+            
+            <!-- Quantum Waves -->
+            <div class="parallax-symbol wave float-fast" style="top: 50%; left: 95%; animation-delay: -6s;"></div>
+            
+            <!-- Tech Triangles -->
+            <div class="parallax-symbol triangle drift-fast rotate-medium" style="top: 80%; left: 55%; animation-delay: -10s;"></div>
+            <div class="parallax-symbol triangle float-fast" style="top: 12%; left: 90%; animation-delay: -4s;"></div>
+        </div>
+
+        <!-- Layer 4 - Ultra Foreground (50% Larger, Much More Visible) -->
+        <div class="parallax-layer-4">
+            <!-- Quantum Atoms -->
+            <div class="parallax-symbol atom float-fast" style="top: 18%; left: 52%; animation-delay: -1s;"></div>
+            <div class="parallax-symbol atom drift-fast rotate-slow" style="top: 68%; left: 22%; animation-delay: -4s;"></div>
+            
+            <!-- Tech Hexagons -->
+            <div class="parallax-symbol hexagon drift-fast rotate-medium" style="top: 35%; left: 78%; animation-delay: -2s;"></div>
+            <div class="parallax-symbol hexagon float-fast" style="top: 82%; left: 48%; animation-delay: -6s;"></div>
+            <div class="parallax-symbol hexagon drift-fast" style="top: 8%; left: 18%; animation-delay: -8s;"></div>
+            
+            <!-- Circuit Nodes -->
+            <div class="parallax-symbol circuit-node float-fast" style="top: 42%; left: 88%; animation-delay: -3s;"></div>
+            <div class="parallax-symbol circuit-node drift-fast" style="top: 58%; left: 8%; animation-delay: -7s;"></div>
+            
+            <!-- Quantum Waves -->
+            <div class="parallax-symbol wave drift-fast" style="top: 28%; left: 68%; animation-delay: -5s;"></div>
+            <div class="parallax-symbol wave float-fast" style="top: 72%; left: 92%; animation-delay: -1.5s;"></div>
+            
+            <!-- Tech Triangles -->
+            <div class="parallax-symbol triangle float-fast rotate-medium" style="top: 92%; left: 72%; animation-delay: -9s;"></div>
+            <div class="parallax-symbol triangle drift-fast" style="top: 22%; left: 38%; animation-delay: -3.5s;"></div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 
